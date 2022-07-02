@@ -1,53 +1,6 @@
---
--- Built with,
---
---        ,gggg,
---       d8" "8I                         ,dPYb,
---       88  ,dP                         IP'`Yb
---    8888888P"                          I8  8I
---       88                              I8  8'
---       88        gg      gg    ,g,     I8 dPgg,
---  ,aa,_88        I8      8I   ,8'8,    I8dP" "8I
--- dP" "88P        I8,    ,8I  ,8'  Yb   I8P    I8
--- Yb,_,d88b,,_   ,d8b,  ,d8b,,8'_   8) ,d8     I8,
---  "Y8P"  "Y888888P'"Y88P"`Y8P' "YY8P8P88P     `Y8
---
-
--- This is a starter colorscheme for use with Lush,
--- for usage guides, see :h lush or :LushRunTutorial
-
---
--- Note: Because this is a lua file, vim will append it to the runtime,
---       which means you can require(...) it in other lua code (this is useful),
---       but you should also take care not to conflict with other libraries.
---
---       (This is a lua quirk, as it has somewhat poor support for namespacing.)
---
---       Basically, name your file,
---
---       "super_theme/lua/lush_theme/super_theme_dark.lua",
---
---       not,
---
---       "super_theme/lua/dark.lua".
---
---       With that caveat out of the way...
---
-
--- Enable lush.ify on this file, run:
---
---  `:Lushify`
---
---  or
---
---  `:lua require('lush').ify()`
-
 local lush = require('lush')
 local hsl = lush.hsl
 
--- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
--- support an annotation like the following. Consult your server documentation.
----@diagnostic disable: undefined-global
 local theme = lush(function()
   return {
     ColorColumn  { bg=hsl(0, 0, 10) }, -- Columns set with 'colorcolumn'
@@ -73,14 +26,20 @@ local theme = lush(function()
     DiffDelete   { fg=hsl(0, 100, 50) }, -- Diff mode: Deleted line |diff.txt|
     EndOfBuffer  { fg=hsl(0, 100, 50) }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
     Winseparator { fg=hsl(0, 0, 7) }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
+    TSPunctDelimiter     { } , -- Punctuation delimiters: Periods, commas, semicolons, etc.
+    TSPunctBracket       { } , -- Brackets, braces, parentheses, etc.
+    TSPunctSpecial       { } , -- Special punctuation that doesn't fit into the previous categories.
+    TSTagDelimiter       { } , -- Tag delimiters like `<` `>` `/`.
+    TSField              { } , -- Object and struct fields.
+    TSParameter          { } , -- Parameters of a function.
+    TSConstant           { fg=hsl(35, 100, 50) } , -- Constants identifiers. These might not be semantically constant. E.g. uppercase variables in Python.
+    TSConstBuiltin       { TSConstant } , -- Built-in constant values: `nil` in Lua.
+    TSFuncBuiltin        { Operator } , -- Built-in functions: `print` in Lua.
+    TSConstructor        { Type } , -- Constructor calls and definitions: `{}` in Lua, and Java constructors.
+    TSBoolean            { Constant } , -- Boolean literals: `True` and `False` in Python.
+    TSVariableBuiltin    { Constant } , -- Variable names defined by the language: `this` or `self` in Javascript.
 
-    -- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
-    -- groups, mostly used for styling UI elements.
-    -- Comment them out and add your own properties to override the defaults.
     -- An empty definition `{}` will clear all styling, leaving elements looking
-    -- like the 'Normal' group.
-    -- To be able to link to a group, it must already be defined, so you may have
-    -- to reorder items as you go.
     --
     -- See :h highlight-groups
     --
@@ -211,23 +170,17 @@ local theme = lush(function()
     -- See :h nvim-treesitter-highlights, some groups may not be listed, submit a PR fix to lush-template!
     --
     -- TSAttribute          { } , -- Annotations that can be attached to the code to denote some kind of meta information. e.g. C++/Dart attributes.
-    -- TSBoolean            { } , -- Boolean literals: `True` and `False` in Python.
     -- TSCharacter          { } , -- Character literals: `'a'` in C.
     -- TSCharacterSpecial   { } , -- Special characters.
-    -- TSComment            { } , -- Line comments and block comments.
+        -- TSComment            { } , -- Line comments and block comments.
     -- TSConditional        { } , -- Keywords related to conditionals: `if`, `when`, `cond`, etc.
-    -- TSConstant           { } , -- Constants identifiers. These might not be semantically constant. E.g. uppercase variables in Python.
-    -- TSConstBuiltin       { } , -- Built-in constant values: `nil` in Lua.
     -- TSConstMacro         { } , -- Constants defined by macros: `NULL` in C.
-    -- TSConstructor        { } , -- Constructor calls and definitions: `{}` in Lua, and Java constructors.
     -- TSDebug              { } , -- Debugging statements.
     -- TSDefine             { } , -- Preprocessor #define statements.
     -- TSError              { } , -- Syntax/parser errors. This might highlight large sections of code while the user is typing still incomplete code, use a sensible highlight.
     -- TSException          { } , -- Exception related keywords: `try`, `except`, `finally` in Python.
-    -- TSField              { } , -- Object and struct fields.
     -- TSFloat              { } , -- Floating-point number literals.
     -- TSFunction           { } , -- Function calls and definitions.
-    -- TSFuncBuiltin        { } , -- Built-in functions: `print` in Lua.
     -- TSFuncMacro          { } , -- Macro defined functions (calls and definitions): each `macro_rules` in Rust.
     -- TSInclude            { } , -- File or module inclusion keywords: `#include` in C, `use` or `extern crate` in Rust.
     -- TSKeyword            { } , -- Keywords that don't fit into other categories.
@@ -240,13 +193,9 @@ local theme = lush(function()
     -- TSNone               { } , -- No highlighting (sets all highlight arguments to `NONE`). this group is used to clear certain ranges, for example, string interpolations. Don't change the values of this highlight group.
     -- TSNumber             { } , -- Numeric literals that don't fit into other categories.
     -- TSOperator           { } , -- Binary or unary operators: `+`, and also `->` and `*` in C.
-    -- TSParameter          { } , -- Parameters of a function.
     -- TSParameterReference { } , -- References to parameters of a function.
     -- TSPreProc            { } , -- Preprocessor #if, #else, #endif, etc.
     -- TSProperty           { } , -- Same as `TSField`.
-    -- TSPunctDelimiter     { } , -- Punctuation delimiters: Periods, commas, semicolons, etc.
-    -- TSPunctBracket       { } , -- Brackets, braces, parentheses, etc.
-    -- TSPunctSpecial       { } , -- Special punctuation that doesn't fit into the previous categories.
     -- TSRepeat             { } , -- Keywords related to loops: `for`, `while`, etc.
     -- TSStorageClass       { } , -- Keywords that affect how a variable is stored: `static`, `comptime`, `extern`, etc.
     -- TSString             { } , -- String literals.
@@ -256,7 +205,6 @@ local theme = lush(function()
     -- TSSymbol             { } , -- Identifiers referring to symbols or atoms.
     -- TSTag                { } , -- Tags like HTML tag names.
     -- TSTagAttribute       { } , -- HTML tag attributes.
-    -- TSTagDelimiter       { } , -- Tag delimiters like `<` `>` `/`.
     -- TSText               { } , -- Non-structured text. Like text in a markup language.
     -- TSStrong             { } , -- Text to be represented in bold.
     -- TSEmphasis           { } , -- Text to be represented with emphasis.
@@ -275,11 +223,8 @@ local theme = lush(function()
     -- TSType               { } , -- Type (and class) definitions and annotations.
     -- TSTypeBuiltin        { } , -- Built-in types: `i32` in Rust.
     -- TSVariable           { } , -- Variable names that don't fit into other categories.
-    -- TSVariableBuiltin    { } , -- Variable names defined by the language: `this` or `self` in Javascript.
   }
 end)
 
--- Return our parsed theme for extension or use elsewhere.
 return theme
 
--- vi:nowrap

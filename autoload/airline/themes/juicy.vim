@@ -53,32 +53,38 @@ let s:command1   = [s:black[0], g:juicy#command_main[0],  s:black[1], g:juicy#co
 let s:command2   = [s:white[0],   g:juicy#command_sec[0], s:white[1],   g:juicy#command_sec[1]]
 let s:command3   = [s:white[0],   g:juicy#command_sec[0], s:white[1],   g:juicy#command_sec[1]]
 
-let s:inactive1 = [s:grey247[0], s:grey[0], s:grey247[1], s:grey236[1]]
+let s:inactive1 = [s:black[0], s:grey247[0], s:grey247[1], s:grey236[1]]
 let s:inactive2 = [s:grey247[0], s:grey[0], s:grey247[1], s:grey236[1]]
 let s:inactive3 = [s:grey247[0], s:grey[0], s:grey247[1], s:grey236[1]]
 
-let s:warning   = [s:white[0],   s:black[0], s:white[1],   s:grey236[1]]
+let s:warning_normal  = [s:white[0],   g:juicy#normal_sec[0], s:white[1],   g:juicy#normal_sec[1]]
+let s:warning_insert  = [s:white[0],   g:juicy#insert_sec[0], s:white[1],   g:juicy#insert_sec[1]]
+let s:warning_replace  = [s:white[0],   g:juicy#replace_sec[0], s:white[1],   g:juicy#replace_sec[1]]
+let s:warning_visual  = [s:white[0],   g:juicy#visual_sec[0], s:white[1],   g:juicy#visual_sec[1]]
+let s:warning_command  = [s:white[0],   g:juicy#command_sec[0], s:white[1],   g:juicy#command_sec[1]]
+let s:warning_inactive  = [s:white[0],   s:grey[0], s:white[1],   s:grey[1]]
+
 let s:error     = [s:blue[0],    s:black[0], s:blue[1],    s:grey236[1]]
 
 if exists('g:airline_theme')
     let g:airline#themes#juicy#palette                          = {}
     let g:airline#themes#juicy#palette                          = {}
     let g:airline#themes#juicy#palette.normal                   = airline#themes#generate_color_map(s:normal1, s:normal2, s:normal3)
-    let g:airline#themes#juicy#palette.normal.airline_warning   = s:warning
+    let g:airline#themes#juicy#palette.normal.airline_warning   = s:warning_normal
     let g:airline#themes#juicy#palette.normal.airline_error     = s:error
     let g:airline#themes#juicy#palette.insert                   = airline#themes#generate_color_map(s:insert1, s:insert2, s:insert3)
-    let g:airline#themes#juicy#palette.insert.airline_warning   = s:warning
+    let g:airline#themes#juicy#palette.insert.airline_warning   = s:warning_insert
     let g:airline#themes#juicy#palette.insert.airline_error     = s:error
     let g:airline#themes#juicy#palette.replace                  = airline#themes#generate_color_map(s:replace1, s:replace2, s:replace3)
-    let g:airline#themes#juicy#palette.replace.airline_warning  = s:warning
+    let g:airline#themes#juicy#palette.replace.airline_warning  = s:warning_replace
     let g:airline#themes#juicy#palette.replace.airline_error    = s:error
     let g:airline#themes#juicy#palette.visual                   = airline#themes#generate_color_map(s:visual1, s:visual2, s:visual3)
-    let g:airline#themes#juicy#palette.visual.airline_warning   = s:warning
+    let g:airline#themes#juicy#palette.visual.airline_warning   = s:warning_visual
     let g:airline#themes#juicy#palette.visual.airline_error     = s:error
     let g:airline#themes#juicy#palette.commandline                   = airline#themes#generate_color_map(s:command1, s:command2, s:command3)
-    let g:airline#themes#juicy#palette.commandline.airline_warning   = s:warning
+    let g:airline#themes#juicy#palette.commandline.airline_warning   = s:warning_command
     let g:airline#themes#juicy#palette.commandline.airline_error     = s:error
     let g:airline#themes#juicy#palette.inactive                 = airline#themes#generate_color_map(s:inactive1, s:inactive2, s:inactive3)
-    let g:airline#themes#juicy#palette.inactive.airline_warning = s:warning
+    let g:airline#themes#juicy#palette.inactive.airline_warning = s:warning_inactive
     let g:airline#themes#juicy#palette.inactive.airline_error   = s:error
 endif
