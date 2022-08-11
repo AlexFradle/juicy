@@ -6,13 +6,13 @@ local theme = lush(function()
     ColorColumn  { bg=hsl(0, 0, 10) }, -- Columns set with 'colorcolumn'
     SignColumn   {  }, -- Column where |signs| are displayed
     LineNr       { fg=hsl(0, 0, 50) }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-    MatchParen   { fg=hsl(0, 0, 0), bg=hsl(170, 100, 50) }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     Normal       { bg=hsl(0, 0, 0), fg=hsl(0, 0, 100) }, -- Normal text
     Visual       { bg=Normal.bg.lighten(20) }, -- Visual mode selection
     NormalFloat  { Visual }, -- Normal text in floating windows.
     Pmenu        { Visual }, -- Popup menu: Normal item.
     Comment        { fg=Normal.fg.darken(40) }, -- Any comment
     Constant       { fg=hsl(60, 100, 50) }, -- (*) Any constant
+    MatchParen   { Constant }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     String         { fg=hsl(120, 100, 50) }, --   A string constant: "this is a string"
     Number         { String }, --   A number constant: 234, 0xff
     Identifier     { fg=hsl(165, 100, 68) }, -- (*) Any variable name
